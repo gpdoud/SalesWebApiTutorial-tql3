@@ -20,7 +20,7 @@ namespace SalesWebApiTutorial.Controllers {
             _context = context;
         }
 
-        private async Task<IActionResult> RecalculateOrderTotal(int orderId) {
+        public async Task<IActionResult> RecalculateOrderTotal(int orderId) {
             // read the order to be recalculated
             var order = await _context.Orders.FindAsync(orderId);
             // if the order is not found, return NOT FOUND

@@ -20,6 +20,17 @@ namespace SalesWebApiTutorial.Controllers {
             _context = context;
         }
 
+        /// <summary>
+        /// Demonstrates how to call a method in a different controller
+        /// </summary>
+        /// <param name="orderId">The primary key of Order</param>
+        /// <returns>No content</returns>
+        [HttpPut("recalc/{orderId}")]
+        public async Task<IActionResult> ReturnControllerClassname(int orderId) {
+            var orderlineController = new OrderlinesController(_context);
+            return await orderlineController.RecalculateOrderTotal(orderId);
+        }
+
         // GET: api/orders/status/{status}
         [HttpGet("status/{status}")]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrdersByStatus(string status) {
