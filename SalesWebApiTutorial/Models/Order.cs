@@ -15,6 +15,9 @@ public class Order {
     [StringLength(20)]
     public string Status { get; set; } = string.Empty;
 
+    [Column(TypeName = "decimal(11,2)")]
+    public decimal Total { get; set;  }
+
     public int CustomerId { get; set; }
     public virtual Customer? Customer { get; set; }
 

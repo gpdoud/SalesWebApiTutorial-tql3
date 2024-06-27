@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SalesWebApiTutorial.Data;
 
@@ -11,9 +12,11 @@ using SalesWebApiTutorial.Data;
 namespace SalesWebApiTutorial.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240626192333_added item")]
+    partial class addeditem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -124,40 +127,11 @@ namespace SalesWebApiTutorial.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<decimal>("Total")
-                        .HasColumnType("decimal(11,2)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
                     b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("SalesWebApiTutorial.Models.Orderline", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ItemId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ItemId");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("Orderlines");
                 });
 
             modelBuilder.Entity("SalesWebApiTutorial.Models.Order", b =>
@@ -169,25 +143,6 @@ namespace SalesWebApiTutorial.Migrations
                         .IsRequired();
 
                     b.Navigation("Customer");
-                });
-
-            modelBuilder.Entity("SalesWebApiTutorial.Models.Orderline", b =>
-                {
-                    b.HasOne("SalesWebApiTutorial.Models.Item", "Item")
-                        .WithMany()
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SalesWebApiTutorial.Models.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Item");
-
-                    b.Navigation("Order");
                 });
 #pragma warning restore 612, 618
         }

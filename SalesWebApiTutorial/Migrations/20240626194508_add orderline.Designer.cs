@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SalesWebApiTutorial.Data;
 
@@ -11,9 +12,11 @@ using SalesWebApiTutorial.Data;
 namespace SalesWebApiTutorial.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240626194508_add orderline")]
+    partial class addorderline
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -124,9 +127,6 @@ namespace SalesWebApiTutorial.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<decimal>("Total")
-                        .HasColumnType("decimal(11,2)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
@@ -145,7 +145,10 @@ namespace SalesWebApiTutorial.Migrations
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
 
-                    b.Property<int>("OrderId")
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderIt")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
@@ -181,9 +184,7 @@ namespace SalesWebApiTutorial.Migrations
 
                     b.HasOne("SalesWebApiTutorial.Models.Order", "Order")
                         .WithMany()
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrderId");
 
                     b.Navigation("Item");
 
