@@ -1,7 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SalesWebApiTutorial.Models;
 
+[Index("Email", IsUnique = true, Name = "UIDX_Email")]
 public class Employee {
 
     public int Id { get; set; }
